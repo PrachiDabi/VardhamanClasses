@@ -1,7 +1,7 @@
 {
   "Meta": {
-    "Title": "Vardhaman Classes — CBSE · ICSE · SSC · Pune",
-    "Description": "Expert coaching for Classes 1 to 10 across CBSE, ICSE and SSC boards. Located at Maharshi Nagar, Pune."
+    "Title": "Vardhaman Classes | Coaching for Classes 1 to 10 | CBSE, ICSE, SSC | Maharshi Nagar Pune",
+    "Description": "Vardhaman Classes in Maharshi Nagar near Gultekdi, Pune offers expert coaching for Classes 1 to 10 across CBSE, ICSE and SSC boards. Subjects include Maths, Science, Social Studies and Languages. Small batches, regular tests and daily doubt sessions. Enroll today."
   },
   "Navigation": {
     "BrandInitial": "V",
@@ -26,6 +26,15 @@
     ],
     "EnrollLabel": "Enroll now"
   },
+  "ClassPhotos": [
+    "assets/Images/1.jpeg",
+    "assets/Images/2.jpeg",
+    "assets/Images/3.jpeg",
+    "assets/Images/4.jpeg",
+    "assets/Images/5.jpeg",
+    "assets/Images/6.jpeg",
+    "assets/Images/7.jpeg"
+  ],
   "Hero": {
     "Tagline": "CBSE · ICSE · SSC · Classes 1 to 10",
     "Heading": "Your child's success starts here",
@@ -33,7 +42,8 @@
     "Lead": "Expert coaching for Classes 1 to 10 across CBSE, ICSE and SSC boards. Located at Maharshi Nagar, Pune.",
     "PrimaryButton": "Enroll Now",
     "SecondaryButton": "Call Us Today",
-    "PhotoCaption": "happy classroom photo",
+    "SecondaryHref": "tel:9075277897",
+    "PhotoCaption": "Classroom at Vardhaman Classes",
     "FloatingCardTitle": "Daily doubt sessions",
     "FloatingCardBody": "No question left behind.",
     "BoardsBadgeTitle": "3 Boards",
@@ -59,7 +69,7 @@
       "At Vardhaman Classes, we believe every child has the potential to excel with the right guidance. Located at Maharshi Nagar, near Gultekdi, Pune, we are a trusted coaching institute offering structured and result-oriented learning for Classes 1 through 10 across CBSE, ICSE and SSC boards.",
       "Our teaching approach goes beyond the textbook. We focus on conceptual clarity, consistent practice and building a student's confidence alongside their academic performance. At Vardhaman Classes, students don't just prepare for exams. They develop a genuine love for learning."
     ],
-    "PhotoCaption": "students & institute photo",
+    "PhotoCaption": "Learning at Vardhaman Classes",
     "Stats": [
       {
         "Big": "3 Boards",
@@ -82,16 +92,26 @@
       {
         "Name": "Shweta Jain",
         "Role": "Science and Mathematics",
-        "PhotoCaption": "Shweta Jain — photo",
-        "Subjects": "Mathematics, Science (Physics, Chemistry, Biology)",
-        "Bio": "Shweta Jain brings a concept-first approach to Science and Mathematics that transforms how students think and solve problems. Known for her patience and ability to simplify complex topics, she ensures every student builds a strong academic foundation. Her students consistently report improved problem-solving skills and significantly better exam results."
+        "Photo": "assets/Images/Shweta Jain.png",
+        "PhotoCaption": "Shweta Jain",
+        "SubjectTags": ["Mathematics", "Science", "Classes 1–10"],
+        "Bio": "A concept-first approach that transforms how students think and solve problems. Known for patience and simplifying complex topics, she builds strong foundations and better exam results."
       },
       {
         "Name": "Vandana Mutha",
         "Role": "Social Studies and Languages",
-        "PhotoCaption": "Vandana Mutha — photo",
-        "Subjects": "Social Studies (History, Geography, Civics), Languages (English, Hindi, Marathi)",
-        "Bio": "Vandana Mutha makes Social Studies and Languages engaging through real-world connections, structured discussions and a storytelling approach that helps students retain what they learn. Under her guidance, students develop not just subject knowledge but strong reading, writing and communication skills that stay with them for life."
+        "Photo": "assets/Images/Vandana Muttha.png",
+        "PhotoCaption": "Vandana Mutha",
+        "SubjectTags": ["Social Studies", "English", "Hindi & Marathi"],
+        "Bio": "Makes Social Studies and Languages engaging through storytelling and real-world connections. Students build lasting reading, writing, and communication skills under her guidance."
+      },
+      {
+        "Name": "Ayesha Shaikh",
+        "Role": "Social Studies",
+        "Photo": "assets/Images/Ayesha Shaikh.png",
+        "PhotoCaption": "Ayesha Shaikh",
+        "SubjectTags": ["Social Studies", "Classes 1–7"],
+        "Bio": "Nurtures young learners from Standards 1 to 7 with a patient, interactive style. Focused on individual attention so children grow confidence and a love for learning early on."
       }
     ]
   },
@@ -162,17 +182,17 @@
     "Items": [
       {
         "Text": "Shweta Ma'am's way of teaching Maths completely changed how my son approaches the subject. He went from struggling to scoring 92 in his SSC boards.",
-        "Author": "Parent of a Class 10 student",
+        "Author": "Parent of a Class 10 Student",
         "Board": "SSC Board"
       },
       {
-        "Text": "Vandana Ma'am makes History feel like a story. My daughter actually looks forward to Social Studies now, which I never thought I'd say.",
-        "Author": "Parent of a Class 8 student",
+        "Text": "Vandana Ma'am makes History feel like a story. My daughter actually looks forward to Social Studies now, which I never thought I would say.",
+        "Author": "Parent of a Class 8 Student",
         "Board": "CBSE Board"
       },
       {
-        "Text": "The small batch size made all the difference. The teachers genuinely know where each child is and what they need.",
-        "Author": "Parent of a Class 6 student",
+        "Text": "The small batch size is what made the difference for us. The teachers genuinely know where each child is and what they need.",
+        "Author": "Parent of a Class 6 Student",
         "Board": "ICSE Board"
       }
     ]
@@ -184,19 +204,21 @@
     "Rows": [
       {
         "Label": "ADDRESS",
-        "Value": "Maharshi Nagar, Near Gultekdi, Pune"
+        "Value": "Kushaba Zanjale Rd, opp. Pujari Garden, Market Yard, Maharshi Nagar, Pune, Maharashtra 411037"
       },
       {
         "Label": "PHONE",
-        "Value": "Add your number"
+        "Value": "9075277897",
+        "Href": "tel:9075277897"
       },
       {
         "Label": "EMAIL",
-        "Value": "Add your email"
+        "Value": "pune.vardhamanclasses@gmail.com",
+        "Href": "mailto:pune.vardhamanclasses@gmail.com"
       },
       {
         "Label": "BATCH TIMINGS",
-        "Value": "Add your schedule"
+        "Value": "3:30pm to 7:00pm"
       }
     ],
     "Form": {
@@ -257,8 +279,8 @@
       }
     ],
     "VisitHeading": "Visit us",
-    "AddressLine1": "Maharshi Nagar, Near Gultekdi,",
-    "AddressLine2": "Pune, Maharashtra",
+    "AddressLine1": "Kushaba Zanjale Rd, opp. Pujari Garden,",
+    "AddressLine2": "Maharshi Nagar, Pune, Maharashtra 411037",
     "EnrollLink": "Enroll your child →",
     "Copyright": "© {{ year }} Vardhaman Classes. All rights reserved.",
     "Tagline": "Made with care in Pune"

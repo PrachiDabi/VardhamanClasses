@@ -93,6 +93,16 @@
       if (Value != null) El.setAttribute("placeholder", Value);
     });
 
+    document.querySelectorAll("[data-href]").forEach((El) => {
+      const Value = GetByPath(El.getAttribute("data-href"));
+      if (Value != null) El.setAttribute("href", Value);
+    });
+
+    document.querySelectorAll("[data-src]").forEach((El) => {
+      const Value = GetByPath(El.getAttribute("data-src"));
+      if (Value != null) El.setAttribute("src", Value);
+    });
+
     const Copyright = document.getElementById("CopyrightText");
     if (Copyright) {
       Copyright.textContent = Content.Footer.Copyright.replace("{{ year }}", String(new Date().getFullYear()));
@@ -161,22 +171,39 @@
     const Container = document.getElementById("TeacherGrid");
     if (!Container) return;
 
-    const TeacherIcons = [Icon("Flask", 24), Icon("Globe", 24)];
-    Container.innerHTML = Content.Teachers.Items.map(
-      (Teacher, Index) =>
-        `<div class="vc-fade vc-teacher-card">
-          <div class="vc-teacher-photo">
-            <span class="vc-photo-caption vc-photo-caption--small">${Teacher.PhotoCaption}</span>
-          </div>
+    const TeacherIcons = [
+      Icon("Flask", 18, "currentColor"),
+      Icon("Globe", 18, "currentColor"),
+      Icon("BookS", 18, "currentColor"),
+    ];
+    Container.innerHTML = Content.Teachers.Items.map((Teacher, Index) => {
+      const PhotoSrc = Teacher.Photo ? encodeURI(Teacher.Photo) : "";
+      const PhotoHtml = PhotoSrc
+        ? `<img class="vc-teacher-photo-img" src="${PhotoSrc}" alt="${Teacher.PhotoCaption || Teacher.Name}">`
+        : `<span class="vc-photo-caption vc-photo-caption--small">${Teacher.PhotoCaption || Teacher.Name}</span>`;
+
+      const Tags = Array.isArray(Teacher.SubjectTags) ? Teacher.SubjectTags : [];
+      const TagsHtml = Tags.length
+        ? `<div class="vc-teacher-tags">${Tags.map((Tag) => `<span class="vc-teacher-tag">${Tag}</span>`).join("")}</div>`
+        : Teacher.Subjects
+          ? `<div class="vc-teacher-subjects"><span class="vc-muted-label">Subjects — </span>${Teacher.Subjects}</div>`
+          : "";
+
+      return `<article class="vc-fade vc-teacher-card">
+          <div class="vc-teacher-photo">${PhotoHtml}</div>
           <div class="vc-teacher-body">
-            <span class="vc-badge vc-teacher-icon">${TeacherIcons[Index]}</span>
-            <h3 class="vc-teacher-name">${Teacher.Name}</h3>
-            <div class="vc-teacher-role">${Teacher.Role}</div>
+            <div class="vc-teacher-top">
+              <span class="vc-teacher-icon">${TeacherIcons[Index] || TeacherIcons[0]}</span>
+              <div>
+                <h3 class="vc-teacher-name">${Teacher.Name}</h3>
+                <div class="vc-teacher-role">${Teacher.Role}</div>
+              </div>
+            </div>
             <p class="vc-teacher-bio">${Teacher.Bio}</p>
-            <div class="vc-teacher-subjects"><span class="vc-muted-label">Subjects — </span>${Teacher.Subjects}</div>
+            ${TagsHtml}
           </div>
-        </div>`
-    ).join("");
+        </article>`;
+    }).join("");
   }
 
   function RenderReasons() {
@@ -249,16 +276,19 @@
       Icon("Clock", 22, "#3FB0C4"),
     ];
 
-    Container.innerHTML = Content.Contact.Rows.map(
-      (Row, Index) =>
-        `<div class="vc-contact-row">
+    Container.innerHTML = Content.Contact.Rows.map((Row, Index) => {
+      const ValueHtml = Row.Href
+        ? `<a class="vc-contact-value vc-contact-value--link" href="${Row.Href}">${Row.Value}</a>`
+        : `<div class="vc-contact-value">${Row.Value}</div>`;
+
+      return `<div class="vc-contact-row">
           <span class="vc-badge vc-contact-icon">${ContactIcons[Index]}</span>
           <div>
             <div class="vc-contact-label">${Row.Label}</div>
-            <div class="vc-contact-value">${Row.Value}</div>
+            ${ValueHtml}
           </div>
-        </div>`
-    ).join("");
+        </div>`;
+    }).join("");
   }
 
   function RenderFormOptions() {
@@ -339,6 +369,38 @@
     setTimeout(() => Elements.forEach((El) => El.setAttribute("data-shown", "")), 2800);
   }
 
+  function SetupPhotoFades() {
+    const Photos = Content.ClassPhotos;
+    if (!Array.isArray(Photos) || Photos.length < 2) return;
+
+    const IntervalMs = 3800;
+    const Setups = [
+      { Id: "HeroPhotoFade", Start: 0, Caption: Content.Hero.PhotoCaption },
+      { Id: "AboutPhotoFade", Start: Math.floor(Photos.length / 2), Caption: Content.About.PhotoCaption },
+    ];
+
+    Setups.forEach((Setup, SetupIndex) => {
+      const Frame = document.getElementById(Setup.Id);
+      if (!Frame) return;
+
+      Frame.innerHTML = Photos.map(
+        (Src, Index) =>
+          `<img class="vc-photo-fade-img${Index === Setup.Start ? " is-active" : ""}" src="${encodeURI(Src)}" alt="${Setup.Caption || "Classroom photo"}" loading="${Index === Setup.Start ? "eager" : "lazy"}">`
+      ).join("");
+
+      const Images = [...Frame.querySelectorAll(".vc-photo-fade-img")];
+      let Current = Setup.Start;
+
+      window.setTimeout(() => {
+        window.setInterval(() => {
+          Images[Current].classList.remove("is-active");
+          Current = (Current + 1) % Images.length;
+          Images[Current].classList.add("is-active");
+        }, IntervalMs);
+      }, SetupIndex * 1400);
+    });
+  }
+
   function SetupForm() {
     const Form = document.getElementById("EnrollForm");
     const FormPanel = document.getElementById("FormPanel");
@@ -373,6 +435,7 @@
 
   function Init() {
     PopulateContent();
+    SetupPhotoFades();
     SetupReveal();
     SetupForm();
   }

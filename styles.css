@@ -524,6 +524,27 @@
     }
   }
 
+  @keyframes vc-teacher-icon-pop {
+    0%,
+    100% {
+      transform: translateY(0) scale(1);
+    }
+
+    50% {
+      transform: translateY(-2px) scale(1.06);
+    }
+  }
+
+  @keyframes vc-teacher-shine {
+    0% {
+      transform: translateX(-120%) skewX(-18deg);
+    }
+
+    100% {
+      transform: translateX(220%) skewX(-18deg);
+    }
+  }
+
   .vc-fade {
     opacity: 0;
     transition: opacity .7s ease;
@@ -605,6 +626,7 @@
     .vc-grid3 {
       grid-template-columns: 1fr 1fr !important;
     }
+
   }
 
   @media (max-width:760px) {
@@ -619,6 +641,11 @@
 
     .vc-teacher-card {
       grid-template-columns: 1fr !important;
+    }
+
+    .vc-teacher-photo {
+      min-height: 220px !important;
+      height: 220px !important;
     }
 
     .vc-footer-grid {
@@ -967,7 +994,8 @@
     box-shadow: 0 26px 54px var(--TealAlpha18);
   }
 
-  .vc-photo-frame:has(.vc-photo-frame-img) {
+  .vc-photo-frame:has(.vc-photo-frame-img),
+  .vc-photo-frame.vc-photo-fade {
     padding: 0;
     background-image: none;
   }
@@ -977,6 +1005,26 @@
     height: 100%;
     object-fit: cover;
     display: block;
+  }
+
+  .vc-photo-fade {
+    position: relative;
+    z-index: 0;
+  }
+
+  .vc-photo-fade-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    opacity: 0;
+    transition: opacity 1.1s ease;
+  }
+
+  .vc-photo-fade-img.is-active {
+    opacity: 1;
   }
 
   .vc-photo-frame--about {
@@ -1004,6 +1052,7 @@
 
   .vc-float-card {
     position: absolute;
+    z-index: 3;
     background: var(--White);
     border-radius: 20px;
     padding: 16px 20px;
@@ -1052,6 +1101,7 @@
 
   .vc-board-badge {
     position: absolute;
+    z-index: 3;
     right: -14px;
     top: 24px;
     background: var(--Teal);
@@ -1213,75 +1263,225 @@
     margin: 0 auto;
   }
 
+  #teachers .vc-section-inner {
+    padding-top: 64px;
+    padding-bottom: 64px;
+    max-width: 980px;
+  }
+
   .vc-teacher-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 26px;
-    margin-top: 44px;
+    grid-template-columns: 1fr;
+    gap: 14px;
+    margin-top: 32px;
   }
 
   .vc-teacher-card {
     position: relative;
-    background: var(--Cream);
-    border-radius: 30px;
+    background: var(--White);
+    border-radius: 20px;
     overflow: hidden;
     display: grid;
-    grid-template-columns: 160px 1fr;
-    box-shadow: 0 16px 40px var(--TealAlpha10);
-    transition: transform 0.32s cubic-bezier(0.2, 0.7, 0.2, 1), box-shadow 0.32s ease;
+    grid-template-columns: 168px 1fr;
+    border: 1px solid var(--TealAlpha10);
+    box-shadow: 0 10px 28px var(--TealAlpha10);
+    transition:
+      transform 0.55s cubic-bezier(0.2, 0.7, 0.2, 1),
+      opacity 0.55s ease,
+      box-shadow 0.32s ease,
+      border-color 0.32s ease;
+  }
+
+  .vc-teacher-card.vc-fade {
+    opacity: 0;
+    transform: translateX(-36px);
+  }
+
+  .vc-teacher-card.vc-fade:nth-child(even) {
+    transform: translateX(36px);
+  }
+
+  .vc-teacher-card.vc-fade[data-shown] {
+    opacity: 1;
+    transform: none;
+  }
+
+  .vc-teacher-card:nth-child(even) {
+    background: linear-gradient(90deg, var(--White) 0%, var(--Cream) 100%);
+  }
+
+  .vc-teacher-card::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: var(--Maroon);
+    transform: scaleY(0);
+    transform-origin: top;
+    transition: transform 0.45s cubic-bezier(0.2, 0.7, 0.2, 1);
+    z-index: 2;
+  }
+
+  .vc-teacher-card[data-shown]::before {
+    transform: scaleY(1);
+    transition-delay: 0.2s;
   }
 
   .vc-teacher-photo {
-    background-image: repeating-linear-gradient(135deg, var(--StripeC), var(--StripeC) 11px, var(--StripeD) 11px, var(--StripeD) 22px);
-    display: flex;
-    align-items: flex-end;
-    justify-content: center;
-    padding: 12px;
-    min-height: 236px;
+    position: relative;
+    min-height: 100%;
+    height: 100%;
+    background: var(--Cyan);
+    overflow: hidden;
+  }
+
+  .vc-teacher-photo::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, transparent 55%, var(--TealAlpha18) 100%);
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .vc-teacher-photo::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 45%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.28), transparent);
+    transform: translateX(-120%) skewX(-18deg);
+    z-index: 2;
+    pointer-events: none;
+  }
+
+  .vc-teacher-card:hover .vc-teacher-photo::before {
+    animation: vc-teacher-shine 0.9s ease;
+  }
+
+  .vc-teacher-photo-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    display: block;
+    transition: transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1);
   }
 
   .vc-teacher-body {
-    padding: 24px 26px 28px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 10px;
+    padding: 22px 24px;
+    text-align: left;
+  }
+
+  .vc-teacher-top {
+    display: flex;
+    align-items: center;
+    gap: 12px;
   }
 
   .vc-teacher-icon {
-    width: 46px;
-    height: 46px;
-    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    flex: none;
+    border-radius: 12px;
     background: var(--Cyan);
+    color: var(--Teal);
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    transition: transform 0.35s ease, background 0.35s ease, color 0.35s ease;
   }
 
   .vc-teacher-name {
     font-family: 'Baloo 2', cursive;
     font-weight: 700;
-    font-size: 23px;
-    margin: 14px 0 0;
+    font-size: 22px;
+    margin: 0;
     color: var(--Teal);
+    line-height: 1.1;
+    transition: color 0.3s ease;
   }
 
   .vc-teacher-role {
     display: inline-block;
-    margin-top: 8px;
-    font-size: 13px;
+    margin-top: 4px;
+    font-size: 12.5px;
     font-weight: 700;
     color: var(--Teal);
-    background: var(--Cyan);
-    padding: 5px 13px;
-    border-radius: 999px;
   }
 
   .vc-teacher-bio {
-    font-size: 15px;
-    line-height: 1.62;
+    font-size: 14.5px;
+    line-height: 1.5;
     color: var(--TextBody);
-    margin: 14px 0 0;
+    margin: 0;
+    max-width: 58ch;
+  }
+
+  .vc-teacher-tags {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: 6px;
+    margin-top: 2px;
+  }
+
+  .vc-teacher-tag {
+    font-size: 11.5px;
+    font-weight: 700;
+    color: var(--Teal);
+    background: var(--Mint);
+    border: 1px solid var(--TealAlpha10);
+    padding: 4px 10px;
+    border-radius: 999px;
+    transition: transform 0.25s ease, background 0.25s ease, color 0.25s ease;
+  }
+
+  .vc-teacher-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 22px 44px var(--TealAlpha18);
+    border-color: var(--TealAlpha16);
+  }
+
+  .vc-teacher-card:hover .vc-teacher-photo-img {
+    transform: scale(1.07);
+  }
+
+  .vc-teacher-card:hover .vc-teacher-icon {
+    background: var(--Teal);
+    color: var(--Cream);
+    animation: vc-teacher-icon-pop 0.7s ease;
+  }
+
+  .vc-teacher-card:hover .vc-teacher-name {
+    color: var(--Maroon);
+  }
+
+  .vc-teacher-card:hover .vc-teacher-tag:nth-child(1) {
+    transform: translateY(-2px);
+    transition-delay: 0.02s;
+  }
+
+  .vc-teacher-card:hover .vc-teacher-tag:nth-child(2) {
+    transform: translateY(-2px);
+    transition-delay: 0.06s;
+  }
+
+  .vc-teacher-card:hover .vc-teacher-tag:nth-child(3) {
+    transform: translateY(-2px);
+    transition-delay: 0.1s;
   }
 
   .vc-teacher-subjects {
-    margin-top: 14px;
+    margin-top: 0;
     font-size: 13.5px;
     color: var(--TextMuted);
     font-weight: 600;
@@ -1601,6 +1801,16 @@
     margin-top: 1px;
   }
 
+  .vc-contact-value--link {
+    display: inline-block;
+    text-decoration: none;
+    color: var(--Cream);
+  }
+
+  .vc-contact-value--link:hover {
+    color: var(--Cyan);
+  }
+
   .vc-form-panel {
     background: var(--Cream);
     border-radius: 28px;
@@ -1822,7 +2032,6 @@
     transform: translateY(-2px);
   }
 
-  .vc-teacher-card:hover,
   .vc-reason-card:hover,
   .vc-testimonial-card:hover,
   .vc-batch-card:hover {
