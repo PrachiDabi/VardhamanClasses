@@ -6,17 +6,95 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Vardhaman Classes</title>
   <meta name="description" content="">
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      overflow-anchor: none;
+    }
+
+    /* Keep site out of layout while splash plays (no background scroll). */
+    html.vc-splash-active .vc-page {
+      display: none !important;
+    }
+
+    .vc-splash {
+      position: fixed !important;
+      top: 0 !important;
+      right: 0 !important;
+      bottom: 0 !important;
+      left: 0 !important;
+      z-index: 99999 !important;
+      width: 100% !important;
+      height: 100% !important;
+      margin: 0 !important;
+      background: #000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .vc-splash-video {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      background: #000;
+    }
+
+    .vc-splash-skip-btn {
+      position: absolute;
+      right: 20px;
+      bottom: 20px;
+      z-index: 2;
+      border: 0;
+      border-radius: 999px;
+      padding: 10px 18px;
+      font: 700 13px/1 "Plus Jakarta Sans", system-ui, sans-serif;
+      color: #fff;
+      background: rgba(255, 255, 255, 0.2);
+      cursor: pointer;
+    }
+
+    html.vc-splash-done .vc-splash {
+      display: none !important;
+    }
+  </style>
   <link rel="stylesheet" href="styles.css">
+  <script>
+    try {
+      if ("scrollRestoration" in history) history.scrollRestoration = "manual";
+      if (sessionStorage.getItem("VcSplashSeen") === "1") {
+        document.documentElement.classList.add("vc-splash-done");
+      } else {
+        document.documentElement.classList.add("vc-splash-active");
+      }
+    } catch (Error) {
+      document.documentElement.classList.add("vc-splash-active");
+    }
+  </script>
 </head>
 <body>
+
+<div id="SplashScreen" class="vc-splash" aria-label="Welcome splash video">
+  <video
+    id="SplashVideo"
+    class="vc-splash-video"
+    playsinline
+    muted
+    autoplay
+    preload="auto"
+  >
+    <source src="assets/SplashScreen.mp4" type="video/mp4">
+  </video>
+  <button type="button" class="vc-splash-skip-btn" id="SplashSkip">Skip</button>
+</div>
 
 <div class="vc-page">
 
   <header class="vc-header">
     <nav class="vc-nav vc-pad-x">
-      <a href="#home" class="vc-logo-link">
-        <span class="vc-logo-icon" data-text="Navigation.BrandInitial"></span>
-        <span class="vc-logo-text" data-text="Navigation.BrandName"></span>
+      <a href="#home" class="vc-logo-link" aria-label="Vardhaman Classes">
+        <img class="vc-logo-img" src="assets/Images/Logo.png" alt="Vardhaman Classes" data-src="Navigation.Logo">
       </a>
       <div class="vc-nav-actions">
         <span class="vc-navlinks" id="NavLinks"></span>
@@ -200,7 +278,7 @@
     <div class="vc-footer-grid vc-pad-x">
       <div>
         <div class="vc-footer-brand">
-          <span class="vc-logo-icon" data-text="Footer.BrandInitial"></span>
+          <img class="vc-logo-img vc-logo-img--footer" src="assets/Images/Logo.png" alt="Vardhaman Classes" data-src="Footer.Logo">
           <span class="vc-footer-logo-text" data-text="Footer.BrandName"></span>
         </div>
         <p class="vc-footer-desc" data-text="Footer.Description"></p>
@@ -227,6 +305,98 @@
 
 </div>
 
+<script>
+(function () {
+  const Splash = document.getElementById("SplashScreen");
+  const Video = document.getElementById("SplashVideo");
+  const SkipBtn = document.getElementById("SplashSkip");
+  const Page = document.querySelector(".vc-page");
+
+  function ResetDocumentPosition() {
+    const Html = document.documentElement;
+    const Body = document.body;
+
+    Html.removeAttribute("style");
+    Body.removeAttribute("style");
+
+    window.scrollTo(0, 0);
+    Html.scrollTop = 0;
+    Body.scrollTop = 0;
+    if (Page) Page.scrollTop = 0;
+  }
+
+  function FinishSplash() {
+    document.documentElement.classList.remove("vc-splash-active");
+    document.documentElement.classList.add("vc-splash-done");
+
+    try {
+      if (window.location.hash) {
+        history.replaceState(null, "", window.location.pathname + window.location.search);
+      }
+    } catch (Error) {}
+
+    if (Splash && Splash.parentNode) {
+      Splash.parentNode.removeChild(Splash);
+    }
+
+    ResetDocumentPosition();
+    document.dispatchEvent(new Event("VcSplashDone"));
+
+    window.requestAnimationFrame(function () {
+      ResetDocumentPosition();
+      window.requestAnimationFrame(ResetDocumentPosition);
+    });
+    window.setTimeout(ResetDocumentPosition, 50);
+    window.setTimeout(ResetDocumentPosition, 250);
+  }
+
+  function CloseSplash() {
+    if (window.VcSplashClosed) return;
+    window.VcSplashClosed = true;
+
+    if (Video) {
+      try { Video.pause(); } catch (Error) {}
+    }
+
+    try {
+      sessionStorage.setItem("VcSplashSeen", "1");
+    } catch (Error) {}
+
+    FinishSplash();
+  }
+
+  if (!Splash || document.documentElement.classList.contains("vc-splash-done")) {
+    CloseSplash();
+    return;
+  }
+
+  if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    CloseSplash();
+    return;
+  }
+
+  if (SkipBtn) {
+    SkipBtn.addEventListener("click", function (Event) {
+      Event.preventDefault();
+      Event.stopPropagation();
+      CloseSplash();
+    });
+  }
+
+  if (Video) {
+    Video.addEventListener("ended", CloseSplash);
+    Video.addEventListener("error", CloseSplash);
+    var PlayPromise = Video.play();
+    if (PlayPromise && typeof PlayPromise.catch === "function") {
+      PlayPromise.catch(CloseSplash);
+    }
+  } else {
+    CloseSplash();
+  }
+
+  window.setTimeout(CloseSplash, 10000);
+})();
+</script>
 <script src="content.js"></script>
 <script src="script.js"></script>
 </body>

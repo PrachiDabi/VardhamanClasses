@@ -434,15 +434,38 @@
   }
 
   function Init() {
-    PopulateContent();
-    SetupPhotoFades();
-    SetupReveal();
-    SetupForm();
+    window.scrollTo(0, 0);
+    const Page = document.querySelector(".vc-page");
+    if (Page) Page.scrollTop = 0;
+
+    try {
+      PopulateContent();
+      SetupPhotoFades();
+      SetupReveal();
+      SetupForm();
+    } catch (Error) {
+      document.querySelectorAll(".vc-fade, .vc-rise2").forEach((El) => {
+        El.setAttribute("data-shown", "");
+      });
+    }
+
+    window.setTimeout(function () {
+      window.scrollTo(0, 0);
+      if (Page) Page.scrollTop = 0;
+    }, 0);
+  }
+
+  function StartWhenReady() {
+    if (document.documentElement.classList.contains("vc-splash-active")) {
+      document.addEventListener("VcSplashDone", Init, { once: true });
+      return;
+    }
+    Init();
   }
 
   if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", Init);
+    document.addEventListener("DOMContentLoaded", StartWhenReady);
   } else {
-    Init();
+    StartWhenReady();
   }
 })();

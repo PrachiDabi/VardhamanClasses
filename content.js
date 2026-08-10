@@ -7,6 +7,7 @@ window.PageContent = {
   "Navigation": {
     "BrandInitial": "V",
     "BrandName": "Vardhaman Classes",
+    "Logo": "assets/Images/Logo.png",
     "Links": [
       {
         "Label": "About",
@@ -259,6 +260,7 @@ window.PageContent = {
   "Footer": {
     "BrandInitial": "V",
     "BrandName": "Vardhaman Classes",
+    "Logo": "assets/Images/Logo.png",
     "Description": "A trusted coaching institute offering tuition for Classes 1 to 10 across CBSE, ICSE and SSC boards at Maharshi Nagar, near Gultekdi, Pune.",
     "ExploreHeading": "Explore",
     "ExploreLinks": [
