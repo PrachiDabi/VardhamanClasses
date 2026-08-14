@@ -92,21 +92,20 @@
 <div class="vc-page">
 
   <header class="vc-header">
-    <nav class="vc-nav vc-pad-x">
+    <nav class="vc-nav">
       <a href="#home" class="vc-logo-link" aria-label="Vardhaman Classes">
         <img class="vc-logo-img" src="assets/Images/Logo.png" alt="Vardhaman Classes" data-src="Navigation.Logo">
+        <span class="vc-logo-text" data-text="Navigation.BrandName"></span>
       </a>
-      <div class="vc-nav-actions">
-        <span class="vc-navlinks" id="NavLinks"></span>
-        <a href="#contact" class="vc-link vc-btn-nav" data-text="Navigation.EnrollLabel"></a>
-      </div>
+      <span class="vc-navlinks" id="NavLinks"></span>
+      <a href="#contact" class="vc-link vc-btn-nav" data-text="Navigation.EnrollLabel"></a>
     </nav>
   </header>
 
   <section id="home" class="vc-section-anchor vc-hero">
     <div class="vc-blob vc-blob--hero-teal"></div>
     <div class="vc-blob vc-blob--hero-red"></div>
-    <div class="vc-blob vc-blob--hero-ring"></div>
+    <div class="vc-blob vc-blob--hero-circle"></div>
     <div class="vc-container vc-hero-grid vc-grid2 vc-pad-x">
       <div>
         <span class="vc-eyebrow vc-eyebrow--hero">
@@ -150,7 +149,7 @@
 
   <section id="about" class="vc-section-anchor vc-about vc-grid2 vc-sec vc-pad-x">
     <div class="vc-about-media">
-      <div class="vc-blob vc-blob--about-ring"></div>
+      <div class="vc-blob vc-blob--about-circle"></div>
       <div class="vc-blob vc-blob--about-teal"></div>
       <div class="vc-rise2 vc-photo-frame vc-photo-frame--about vc-photo-fade" id="AboutPhotoFade" aria-label="Classroom photos"></div>
     </div>
@@ -162,21 +161,6 @@
       <h2 class="vc-rise2 vc-d1 vc-heading-lg" data-text="About.Heading"></h2>
       <div id="AboutParagraphs"></div>
       <div class="vc-rise2 vc-d3 vc-stats" id="AboutStats"></div>
-    </div>
-  </section>
-
-  <section id="teachers" class="vc-section-anchor vc-section-muted vc-sec">
-    <div class="vc-blob vc-blob--teachers"></div>
-    <div class="vc-blob vc-blob--teachers-ring"></div>
-    <div class="vc-section-inner vc-pad-x">
-      <div class="vc-section-header">
-        <span class="vc-rise2 vc-eyebrow vc-eyebrow--teachers">
-          <svg class="vc-icon-twinkle" width="14" height="14" viewBox="0 0 24 24" fill="#8E1B2A"><path d="M12 2l1.9 5.6L19.5 9l-5.6 1.9L12 16l-1.9-5.1L4.5 9l5.6-1.4z"/></svg>
-          <span data-text="Teachers.Eyebrow"></span>
-        </span>
-        <h2 class="vc-rise2 vc-d1 vc-heading-lg" data-text="Teachers.Heading"></h2>
-      </div>
-      <div class="vc-teacher-grid vc-stagger" id="TeacherGrid"></div>
     </div>
   </section>
 
@@ -194,7 +178,7 @@
 
   <section id="courses" class="vc-section-anchor vc-section-muted vc-sec">
     <div class="vc-blob vc-blob--courses"></div>
-    <div class="vc-blob vc-blob--courses-ring"></div>
+    <div class="vc-blob vc-blob--courses-circle"></div>
     <div class="vc-section-inner vc-pad-x">
       <div class="vc-section-header">
         <span class="vc-rise2 vc-eyebrow vc-eyebrow--courses">
@@ -204,11 +188,27 @@
         <h2 class="vc-rise2 vc-d1 vc-heading-lg" data-text="Courses.Heading"></h2>
       </div>
       <div class="vc-grid3 vc-stagger" id="BatchGrid"></div>
+      <div class="vc-batch-detail" id="BatchDetail" hidden></div>
+    </div>
+  </section>
+
+  <section id="teachers" class="vc-section-anchor vc-section-muted vc-sec">
+    <div class="vc-blob vc-blob--teachers"></div>
+    <div class="vc-blob vc-blob--teachers-circle"></div>
+    <div class="vc-section-inner vc-pad-x">
+      <div class="vc-section-header">
+        <span class="vc-rise2 vc-eyebrow vc-eyebrow--teachers">
+          <svg class="vc-icon-twinkle" width="14" height="14" viewBox="0 0 24 24" fill="#8E1B2A"><path d="M12 2l1.9 5.6L19.5 9l-5.6 1.9L12 16l-1.9-5.1L4.5 9l5.6-1.4z"/></svg>
+          <span data-text="Teachers.Eyebrow"></span>
+        </span>
+        <h2 class="vc-rise2 vc-d1 vc-heading-lg" data-text="Teachers.Heading"></h2>
+      </div>
+      <div class="vc-teacher-grid vc-stagger" id="TeacherGrid"></div>
     </div>
   </section>
 
   <section id="reviews" class="vc-section-anchor vc-section vc-pad-x">
-    <div class="vc-blob vc-blob--reviews-ring"></div>
+    <div class="vc-blob vc-blob--reviews-circle"></div>
     <div class="vc-section-header">
       <span class="vc-rise2 vc-eyebrow">
         <svg class="vc-icon-twinkle" width="14" height="14" viewBox="0 0 24 24" fill="#8E1B2A"><path d="M12 2l1.9 5.6L19.5 9l-5.6 1.9L12 16l-1.9-5.1L4.5 9l5.6-1.4z"/></svg>
@@ -221,7 +221,7 @@
 
   <section id="contact" class="vc-section-anchor vc-contact vc-sec">
     <div class="vc-blob vc-blob--contact-teal"></div>
-    <div class="vc-blob vc-blob--contact-ring"></div>
+    <div class="vc-blob vc-blob--contact-circle"></div>
     <div class="vc-container vc-contact-grid vc-grid2 vc-pad-x vc-section-inner">
       <div>
         <span class="vc-rise2 vc-eyebrow vc-eyebrow--contact">
@@ -231,6 +231,7 @@
         <h2 class="vc-rise2 vc-d1 vc-heading-lg vc-heading-lg--light" data-text="Contact.Heading"></h2>
         <p class="vc-rise2 vc-d2 vc-lead vc-lead--light" data-text="Contact.Lead"></p>
         <div class="vc-rise2 vc-d3 vc-contact-rows" id="ContactRows"></div>
+        <div class="vc-rise2 vc-d3 vc-contact-social-block" id="ContactSocials"></div>
       </div>
 
       <div class="vc-rise2 vc-d2 vc-form-panel">
@@ -384,6 +385,11 @@
   }
 
   if (Video) {
+    Video.defaultPlaybackRate = 1.75;
+    Video.playbackRate = 1.75;
+    Video.addEventListener("loadedmetadata", function () {
+      Video.playbackRate = 1.75;
+    });
     Video.addEventListener("ended", CloseSplash);
     Video.addEventListener("error", CloseSplash);
     var PlayPromise = Video.play();
@@ -394,7 +400,7 @@
     CloseSplash();
   }
 
-  window.setTimeout(CloseSplash, 10000);
+  window.setTimeout(CloseSplash, 6000);
 })();
 </script>
 <script src="content.js"></script>

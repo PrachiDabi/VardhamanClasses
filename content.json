@@ -13,12 +13,12 @@
         "Href": "#about"
       },
       {
-        "Label": "Teachers",
-        "Href": "#teachers"
-      },
-      {
         "Label": "Courses",
         "Href": "#courses"
+      },
+      {
+        "Label": "Teachers",
+        "Href": "#teachers"
       },
       {
         "Label": "Reviews",
@@ -159,19 +159,19 @@
     "Batches": [
       {
         "Theme": "Light",
-        "Range": "CLASSES 1 TO 5",
+        "Range": "Classes 1 to 5",
         "Title": "Primary Batches",
         "Body": "We build strong academic foundations in Mathematics, Languages, Environmental Science and General Knowledge. Learning at this stage is made interactive, age-appropriate and enjoyable so students develop a positive relationship with education from the very beginning."
       },
       {
         "Theme": "Light",
-        "Range": "CLASSES 6 TO 8",
+        "Range": "Classes 6 to 8",
         "Title": "Middle School Batches",
         "Body": "Concepts deepen at this stage and so does our approach. Our structured program covers all subjects across CBSE, ICSE and SSC with special attention given to Mathematics and Science where students often begin to struggle."
       },
       {
         "Theme": "Dark",
-        "Range": "CLASSES 9 AND 10",
+        "Range": "Classes 9 and 10",
         "Title": "Board Exam Batches",
         "Body": "Board exam preparation done right. We offer focused chapter-wise revision, regular full-length mock tests, performance tracking and intensive one-on-one doubt sessions. Our goal is simple: every student walks into their board exam with complete preparation and full confidence."
       }
@@ -218,10 +218,31 @@
         "Href": "mailto:pune.vardhamanclasses@gmail.com"
       },
       {
-        "Label": "BATCH TIMINGS",
-        "Value": "3:30pm to 7:00pm"
+        "Label": "Batches",
+        "Values": [
+          "Morning",
+          "Afternoon",
+          "Evening"
+        ]
       }
     ],
+    "Socials": {
+      "Label": "CONNECT",
+      "Links": [
+        {
+          "Name": "WhatsApp",
+          "Href": "https://wa.me/919075277897"
+        },
+        {
+          "Name": "YouTube",
+          "Href": "https://www.youtube.com/@VardhamanClasses"
+        },
+        {
+          "Name": "Instagram",
+          "Href": "https://www.instagram.com/vardhamanclasses/"
+        }
+      ]
+    },
     "Form": {
       "Title": "Enquire for admission",
       "Subtitle": "We'll get back to you the same day.",
@@ -268,12 +289,12 @@
         "Href": "#about"
       },
       {
-        "Label": "Teachers",
-        "Href": "#teachers"
-      },
-      {
         "Label": "Courses & batches",
         "Href": "#courses"
+      },
+      {
+        "Label": "Teachers",
+        "Href": "#teachers"
       },
       {
         "Label": "Reviews",

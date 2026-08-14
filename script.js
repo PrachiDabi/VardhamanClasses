@@ -22,6 +22,8 @@
     Clock: [["c", 12, 12, 9], "M12 7v5l3 2"],
     Heart: "M12 21s-7.5-4.6-10-9.3C.4 8.2 2 4.5 5.3 4.5c2 0 3.4 1.2 4.2 2.4.8-1.2 2.2-2.4 4.2-2.4 3.3 0 4.9 3.7 3.3 7.2C19.5 16.4 12 21 12 21z",
     Star: "M12 2l1.9 5.6L19.5 9l-5.6 1.9L12 16l-1.9-5.1L4.5 9l5.6-1.4z",
+    WhatsApp: "M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.435 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z",
+    YouTube: "M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186 31.59 31.59 0 0 0 0 12a31.59 31.59 0 0 0 .502 5.814 3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136A31.59 31.59 0 0 0 24 12a31.59 31.59 0 0 0-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z",
   };
 
   const SubjectIconKeys = {
@@ -124,7 +126,7 @@
 
     Container.innerHTML = Content.Hero.Subjects.map((Subject) => {
       const IconKey = SubjectIconKeys[Subject];
-      const IconSvg = IconKey ? Icon(IconKey, 16) : "";
+      const IconSvg = IconKey ? Icon(IconKey, 18) : "";
       return `<span class="vc-tag">${IconSvg}${Subject}</span>`;
     }).join("");
   }
@@ -236,15 +238,58 @@
 
     const BatchIcons = [Icon("Sun"), Icon("Book"), Icon("Trophy")];
     Container.innerHTML = Content.Courses.Batches.map((Batch, Index) => {
-      const ThemeClass = Batch.Theme === "Dark" ? "vc-batch-card--dark" : "vc-batch-card--light";
-      return `<div class="vc-fade vc-batch-card ${ThemeClass}">
-        <span class="vc-badge vc-batch-icon">${BatchIcons[Index]}</span>
-        <div class="vc-batch-range">${Batch.Range}</div>
-        <h3 class="vc-batch-title">${Batch.Title}</h3>
-        <p class="vc-batch-body">${Batch.Body}</p>
+      const IsActive = Batch.Theme === "Dark";
+      const ActiveClass = IsActive ? " is-active" : "";
+      const Expanded = IsActive ? "true" : "false";
+
+      return `<article class="vc-fade vc-batch-card${ActiveClass}" data-batch-index="${Index}">
+        <button type="button" class="vc-batch-toggle" aria-expanded="${Expanded}" aria-controls="BatchDetail">
+          <span class="vc-badge vc-batch-icon">${BatchIcons[Index]}</span>
+          <h3 class="vc-batch-range">${Batch.Range}</h3>
+          <p class="vc-batch-title">${Batch.Title}</p>
+        </button>
         <a href="#contact" class="vc-link vc-batch-link">${Content.Courses.EnquireLink}</a>
-      </div>`;
+      </article>`;
     }).join("");
+  }
+
+  function SetupBatchCards() {
+    const Cards = [...document.querySelectorAll(".vc-batch-card")];
+    const Detail = document.getElementById("BatchDetail");
+    if (!Cards.length || !Detail) return;
+
+    function SetActiveCard(NextCard) {
+      Cards.forEach((Card) => {
+        const Toggle = Card.querySelector(".vc-batch-toggle");
+        const IsNext = Card === NextCard;
+        Card.classList.toggle("is-active", IsNext);
+        if (Toggle) Toggle.setAttribute("aria-expanded", IsNext ? "true" : "false");
+      });
+
+      if (!NextCard) {
+        Detail.hidden = true;
+        Detail.textContent = "";
+        return;
+      }
+
+      const Index = Number(NextCard.getAttribute("data-batch-index"));
+      const Batch = Content.Courses.Batches[Index];
+      Detail.hidden = false;
+      Detail.textContent = Batch ? Batch.Body : "";
+    }
+
+    Cards.forEach((Card) => {
+      const Toggle = Card.querySelector(".vc-batch-toggle");
+      if (!Toggle) return;
+
+      Toggle.addEventListener("click", () => {
+        const IsOpen = Card.classList.contains("is-active");
+        SetActiveCard(IsOpen ? null : Card);
+      });
+    });
+
+    const Initial = Cards.find((Card) => Card.classList.contains("is-active"));
+    if (Initial) SetActiveCard(Initial);
   }
 
   function RenderReviews() {
@@ -277,9 +322,18 @@
     ];
 
     Container.innerHTML = Content.Contact.Rows.map((Row, Index) => {
-      const ValueHtml = Row.Href
-        ? `<a class="vc-contact-value vc-contact-value--link" href="${Row.Href}">${Row.Value}</a>`
-        : `<div class="vc-contact-value">${Row.Value}</div>`;
+      const BatchValues = Array.isArray(Row.Values) ? Row.Values : [];
+      let ValueHtml;
+
+      if (Row.Href) {
+        ValueHtml = `<a class="vc-contact-value vc-contact-value--link" href="${Row.Href}">${Row.Value}</a>`;
+      } else if (BatchValues.length) {
+        ValueHtml = `<div class="vc-contact-value vc-contact-batches">${BatchValues.map(
+          (Item) => `<span>${Item}</span>`
+        ).join("")}</div>`;
+      } else {
+        ValueHtml = `<div class="vc-contact-value">${Row.Value}</div>`;
+      }
 
       return `<div class="vc-contact-row">
           <span class="vc-badge vc-contact-icon">${ContactIcons[Index]}</span>
@@ -289,6 +343,34 @@
           </div>
         </div>`;
     }).join("");
+  }
+
+  function SocialIcon(Name, Size) {
+    const SvgSize = Size ?? 20;
+    if (Name === "Instagram") {
+      return (
+        `<svg width="${SvgSize}" height="${SvgSize}" viewBox="0 0 24 24" fill="none" ` +
+        `stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">` +
+        `<rect x="3" y="3" width="18" height="18" rx="5"/>` +
+        `<circle cx="12" cy="12" r="4"/>` +
+        `<circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>` +
+        `</svg>`
+      );
+    }
+    return Icon(Name, SvgSize, "currentColor");
+  }
+
+  function RenderContactSocials() {
+    const Container = document.getElementById("ContactSocials");
+    const Socials = Content.Contact.Socials;
+    if (!Container || !Socials || !Array.isArray(Socials.Links)) return;
+
+    const LinksHtml = Socials.Links.map(
+      (Link) =>
+        `<a class="vc-contact-social" href="${Link.Href}" target="_blank" rel="noopener noreferrer" aria-label="${Link.Name}">${SocialIcon(Link.Name, 20)}</a>`
+    ).join("");
+
+    Container.innerHTML = `<div class="vc-contact-label">${Socials.Label}</div><div class="vc-contact-socials">${LinksHtml}</div>`;
   }
 
   function RenderFormOptions() {
@@ -332,6 +414,7 @@
     RenderBatches();
     RenderReviews();
     RenderContactRows();
+    RenderContactSocials();
     RenderFormOptions();
     RenderFooterLinks();
   }
@@ -442,6 +525,7 @@
       PopulateContent();
       SetupPhotoFades();
       SetupReveal();
+      SetupBatchCards();
       SetupForm();
     } catch (Error) {
       document.querySelectorAll(".vc-fade, .vc-rise2").forEach((El) => {
