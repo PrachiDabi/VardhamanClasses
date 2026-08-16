@@ -2027,6 +2027,13 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    overflow: visible;
+  }
+
+  .vc-quote-avatar svg {
+    display: block;
+    flex: none;
+    overflow: visible;
   }
 
   .vc-quote-author {
