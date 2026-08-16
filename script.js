@@ -21,6 +21,7 @@
     Mail: [["r", 2, 4, 20, 16, 2], "M22 7 12 13 2 7"],
     Clock: [["c", 12, 12, 9], "M12 7v5l3 2"],
     Heart: "M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z",
+    Instagram: "M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z",
     Star: "M12 2l1.9 5.6L19.5 9l-5.6 1.9L12 16l-1.9-5.1L4.5 9l5.6-1.4z",
     WhatsApp: "M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.435 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z",
     YouTube: "M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186 31.59 31.59 0 0 0 0 12a31.59 31.59 0 0 0 .502 5.814 3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136A31.59 31.59 0 0 0 24 12a31.59 31.59 0 0 0-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z",
@@ -339,19 +340,16 @@
     }).join("");
   }
 
-  function SocialIcon(Name, Size) {
-    const SvgSize = Size ?? 20;
-    if (Name === "Instagram") {
-      return (
-        `<svg width="${SvgSize}" height="${SvgSize}" viewBox="0 0 24 24" fill="none" ` +
-        `stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">` +
-        `<rect x="3" y="3" width="18" height="18" rx="5"/>` +
-        `<circle cx="12" cy="12" r="4"/>` +
-        `<circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>` +
-        `</svg>`
-      );
-    }
-    return Icon(Name, SvgSize, "currentColor");
+  function BrandIcon(Name, Size) {
+    const SvgSize = Size ?? 22;
+    const Path = IconPaths[Name];
+    if (typeof Path !== "string") return "";
+
+    const FillRule = Name === "YouTube" || Name === "Instagram" || Name === "WhatsApp" ? ' fill-rule="evenodd"' : "";
+    return (
+      `<svg width="${SvgSize}" height="${SvgSize}" viewBox="0 0 24 24" fill="currentColor"${FillRule} aria-hidden="true">` +
+      `<path d="${Path}"/></svg>`
+    );
   }
 
   function RenderContactSocials() {
@@ -359,12 +357,34 @@
     const Socials = Content.Contact.Socials;
     if (!Container || !Socials || !Array.isArray(Socials.Links)) return;
 
-    const LinksHtml = Socials.Links.map(
-      (Link) =>
-        `<a class="vc-contact-social" href="${Link.Href}" target="_blank" rel="noopener noreferrer" aria-label="${Link.Name}">${SocialIcon(Link.Name, 20)}</a>`
-    ).join("");
+    const LinksHtml = Socials.Links.map((Link) => {
+      const Slug = Link.Name.toLowerCase();
+      return `<a class="vc-contact-social vc-contact-social--${Slug}" href="${Link.Href}" target="_blank" rel="noopener noreferrer" aria-label="${Link.Name}">${BrandIcon(Link.Name, 22)}</a>`;
+    }).join("");
 
     Container.innerHTML = `<div class="vc-contact-label">${Socials.Label}</div><div class="vc-contact-socials">${LinksHtml}</div>`;
+  }
+
+  function SetupWhatsAppFab() {
+    const Fab = document.getElementById("WhatsAppFab");
+    const ContactSection = document.getElementById("contact");
+    if (!Fab) return;
+
+    const WhatsApp = Content.Contact?.Socials?.Links?.find((Link) => Link.Name === "WhatsApp");
+    if (WhatsApp?.Href) Fab.setAttribute("href", WhatsApp.Href);
+    Fab.innerHTML = BrandIcon("WhatsApp", 30);
+
+    if (!ContactSection || !("IntersectionObserver" in window)) return;
+
+    const Observer = new IntersectionObserver(
+      (Entries) => {
+        const IsVisible = Entries.some((Entry) => Entry.isIntersecting);
+        Fab.classList.toggle("is-hidden", IsVisible);
+      },
+      { threshold: 0.2 }
+    );
+
+    Observer.observe(ContactSection);
   }
 
   function RenderFormOptions() {
@@ -521,6 +541,7 @@
       SetupReveal();
       SetupBatchCards();
       SetupForm();
+      SetupWhatsAppFab();
     } catch (Error) {
       document.querySelectorAll(".vc-fade, .vc-rise2").forEach((El) => {
         El.setAttribute("data-shown", "");
