@@ -236,60 +236,54 @@
     const Container = document.getElementById("BatchGrid");
     if (!Container) return;
 
-    const BatchIcons = [Icon("Sun"), Icon("Book"), Icon("Trophy")];
+    const BatchIcons = [Icon("Sun"), Icon("Book"), Icon("Trophy"), Icon("ChatS"), Icon("Calc"), Icon("Cap")];
     Container.innerHTML = Content.Courses.Batches.map((Batch, Index) => {
       const IsActive = Batch.Theme === "Dark";
       const ActiveClass = IsActive ? " is-active" : "";
-      const Expanded = IsActive ? "true" : "false";
+      const Selected = IsActive ? "true" : "false";
 
-      return `<article class="vc-fade vc-batch-card${ActiveClass}" data-batch-index="${Index}">
-        <button type="button" class="vc-batch-toggle" aria-expanded="${Expanded}" aria-controls="BatchDetail">
-          <span class="vc-badge vc-batch-icon">${BatchIcons[Index]}</span>
-          <h3 class="vc-batch-range">${Batch.Range}</h3>
-          <p class="vc-batch-title">${Batch.Title}</p>
-        </button>
-        <a href="#contact" class="vc-link vc-batch-link">${Content.Courses.EnquireLink}</a>
-      </article>`;
+      return `<button type="button" class="vc-fade vc-batch-tab${ActiveClass}" role="tab" id="BatchTab${Index}" data-batch-index="${Index}" aria-selected="${Selected}" aria-controls="BatchDetail">
+          <span class="vc-badge vc-batch-icon">${BatchIcons[Index] || BatchIcons[0]}</span>
+          <span class="vc-batch-tab-copy">
+            <span class="vc-batch-range">${Batch.Range}</span>
+            <span class="vc-batch-title">${Batch.Title}</span>
+          </span>
+        </button>`;
     }).join("");
   }
 
   function SetupBatchCards() {
-    const Cards = [...document.querySelectorAll(".vc-batch-card")];
+    const Tabs = [...document.querySelectorAll(".vc-batch-tab")];
     const Detail = document.getElementById("BatchDetail");
-    if (!Cards.length || !Detail) return;
+    if (!Tabs.length || !Detail) return;
 
-    function SetActiveCard(NextCard) {
-      Cards.forEach((Card) => {
-        const Toggle = Card.querySelector(".vc-batch-toggle");
-        const IsNext = Card === NextCard;
-        Card.classList.toggle("is-active", IsNext);
-        if (Toggle) Toggle.setAttribute("aria-expanded", IsNext ? "true" : "false");
+    function SetActiveTab(NextTab) {
+      if (!NextTab) return;
+
+      Tabs.forEach((Tab) => {
+        const IsNext = Tab === NextTab;
+        Tab.classList.toggle("is-active", IsNext);
+        Tab.setAttribute("aria-selected", IsNext ? "true" : "false");
       });
 
-      if (!NextCard) {
-        Detail.hidden = true;
-        Detail.textContent = "";
-        return;
-      }
-
-      const Index = Number(NextCard.getAttribute("data-batch-index"));
+      const Index = Number(NextTab.getAttribute("data-batch-index"));
       const Batch = Content.Courses.Batches[Index];
-      Detail.hidden = false;
-      Detail.textContent = Batch ? Batch.Body : "";
+      if (!Batch) return;
+
+      Detail.innerHTML =
+        `<p class="vc-batch-panel-label">About this batch</p>
+        <h3 class="vc-batch-panel-range">${Batch.Range}</h3>
+        <p class="vc-batch-panel-title">${Batch.Title}</p>
+        <p class="vc-batch-panel-body">${Batch.Body}</p>
+        <a href="#contact" class="vc-link vc-batch-link">${Content.Courses.EnquireLink}</a>`;
     }
 
-    Cards.forEach((Card) => {
-      const Toggle = Card.querySelector(".vc-batch-toggle");
-      if (!Toggle) return;
-
-      Toggle.addEventListener("click", () => {
-        const IsOpen = Card.classList.contains("is-active");
-        SetActiveCard(IsOpen ? null : Card);
-      });
+    Tabs.forEach((Tab) => {
+      Tab.addEventListener("click", () => SetActiveTab(Tab));
     });
 
-    const Initial = Cards.find((Card) => Card.classList.contains("is-active"));
-    if (Initial) SetActiveCard(Initial);
+    const Initial = Tabs.find((Tab) => Tab.classList.contains("is-active")) || Tabs[0];
+    SetActiveTab(Initial);
   }
 
   function RenderReviews() {

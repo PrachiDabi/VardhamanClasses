@@ -175,6 +175,24 @@ window.PageContent = {
         "Range": "Classes 9 and 10",
         "Title": "Board Exam Batches",
         "Body": "Board exam preparation done right. We offer focused chapter-wise revision, regular full-length mock tests, performance tracking and intensive one-on-one doubt sessions. Our goal is simple: every student walks into their board exam with complete preparation and full confidence."
+      },
+      {
+        "Theme": "Light",
+        "Range": "Special Grammar Classes",
+        "Title": "English language focus",
+        "Body": "Focused English grammar sessions that strengthen writing, comprehension and spoken accuracy. Students practise rules through examples, exercises and regular feedback so language becomes a strength, not a hurdle."
+      },
+      {
+        "Theme": "Light",
+        "Range": "Special Maths Batches",
+        "Title": "Extra concept support",
+        "Body": "Extra attention for students who need more time with numbers. These batches go slower on core concepts, with plenty of practice, shortcuts and doubt-solving so Maths feels manageable across every board."
+      },
+      {
+        "Theme": "Light",
+        "Range": "Olympiad Batches",
+        "Title": "Beyond the school syllabus",
+        "Body": "For students who want a challenge beyond school exams. We prepare for Maths and Science olympiads with higher-order problems, reasoning practice and a clear plan that still stays aligned with their regular studies."
       }
     ]
   },

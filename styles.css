@@ -479,6 +479,18 @@
     }
   }
 
+  @keyframes vc-float-tilt {
+
+    0%,
+    100% {
+      transform: translateY(0) rotate(-7deg);
+    }
+
+    50% {
+      transform: translateY(-12px) rotate(-5deg);
+    }
+  }
+
   @keyframes vc-spin {
     to {
       transform: rotate(360deg)
@@ -651,13 +663,17 @@
     .vc-teacher-photo {
       height: auto !important;
       min-height: 0 !important;
+      aspect-ratio: 3 / 4;
+      background: #eceae6;
     }
 
     .vc-teacher-photo-img {
+      position: absolute;
+      inset: 0;
       width: 100%;
-      height: min(340px, 88vw) !important;
-      object-fit: cover;
-      object-position: center 18%;
+      height: 100% !important;
+      object-fit: contain;
+      object-position: center top;
     }
 
     .vc-footer-grid {
@@ -666,19 +682,32 @@
     }
 
     .vc-sec {
-      padding-top: 60px !important;
-      padding-bottom: 60px !important;
+      padding-top: 40px !important;
+      padding-bottom: 40px !important;
     }
 
     .vc-pad-x {
-      padding-left: 20px !important;
-      padding-right: 20px !important;
+      padding-left: 16px !important;
+      padding-right: 16px !important;
     }
   }
 
-  @media (max-width:460px) {
+  @media (max-width: 460px) {
     .vc-hide-xs {
       display: none !important;
+    }
+
+    .vc-eyebrow {
+      font-size: 14px;
+      padding: 8px 16px 8px 12px;
+      white-space: normal;
+      text-align: center;
+      line-height: 1.25;
+    }
+
+    .vc-eyebrow .vc-icon-twinkle {
+      width: 16px;
+      height: 16px;
     }
   }
 
@@ -979,6 +1008,7 @@
     position: absolute;
     border-radius: 50%;
     pointer-events: none;
+    z-index: 0;
   }
 
   .vc-blob--hero-teal {
@@ -1024,23 +1054,30 @@
   .vc-eyebrow {
     display: inline-flex;
     align-items: center;
-    gap: 8px;
-    font-size: 13px;
+    gap: 10px;
+    font-size: 17px;
     font-weight: 800;
-    letter-spacing: 0.04em;
+    letter-spacing: 0.05em;
     color: var(--Maroon);
     background: var(--MaroonAlpha10);
-    padding: 7px 15px 7px 12px;
+    padding: 10px 20px 10px 16px;
     border-radius: 999px;
     white-space: nowrap;
   }
 
+  .vc-eyebrow .vc-icon-twinkle {
+    width: 18px;
+    height: 18px;
+    flex: none;
+  }
+
   .vc-eyebrow--hero {
-    font-size: 14px;
+    font-size: 16px;
     font-weight: 700;
+    letter-spacing: 0.03em;
     color: var(--Teal);
     background: var(--White);
-    padding: 9px 18px 9px 14px;
+    padding: 11px 22px 11px 16px;
     box-shadow: 0 6px 16px var(--TealAlpha10);
   }
 
@@ -1162,12 +1199,18 @@
     font-weight: 600;
   }
 
-  .vc-hero-media {
+  .vc-hero-media,
+  .vc-about-media {
     position: relative;
+    width: 100%;
+    min-width: 0;
   }
 
   .vc-photo-frame {
+    width: 100%;
+    max-width: 100%;
     aspect-ratio: 1 / 1;
+    min-height: 220px;
     border-radius: 36px;
     overflow: hidden;
     background-image: repeating-linear-gradient(135deg, var(--StripeA), var(--StripeA) 14px, var(--StripeB) 14px, var(--StripeB) 28px);
@@ -1247,13 +1290,20 @@
   .vc-float-card--doubt {
     left: -20px;
     bottom: 24px;
-    max-width: 212px;
+    max-width: min(280px, calc(100% - 24px));
+    animation: vc-float-tilt 6s ease-in-out infinite;
   }
 
   .vc-float-card-row {
     display: flex;
     align-items: center;
     gap: 9px;
+    min-width: 0;
+  }
+
+  .vc-float-card-copy {
+    min-width: 0;
+    flex: 1;
   }
 
   .vc-icon-circle {
@@ -1272,15 +1322,18 @@
     font-weight: 700;
     font-size: 16px;
     color: var(--Teal);
-    line-height: 1.05;
+    line-height: 1.15;
+    min-width: 0;
+    white-space: normal;
+    overflow-wrap: anywhere;
   }
 
   .vc-float-card-body {
     font-size: 12.5px;
     color: var(--TextSubtle);
-    margin-top: 10px;
+    margin-top: 0;
     font-weight: 500;
-    line-height: 1.35;
+    line-height: 1.2;
   }
 
   .vc-board-badge {
@@ -1351,10 +1404,12 @@
 
   .vc-about-media {
     position: relative;
+    width: 100%;
+    min-width: 0;
   }
 
   .vc-blob--about-circle {
-    inset: -18px -18px auto auto;
+    inset: 8px 8px auto auto;
     width: 120px;
     height: 120px;
     background: var(--MaroonAlpha16);
@@ -1365,8 +1420,8 @@
     width: 80px;
     height: 80px;
     background: var(--CyanAlpha30);
-    bottom: -22px;
-    left: -22px;
+    bottom: 8px;
+    left: 8px;
     animation: vc-float 6.5s ease-in-out infinite;
   }
 
@@ -1411,31 +1466,32 @@
   }
 
   .vc-section-muted {
-    background: var(--Mint);
+    background: var(--Cream);
     position: relative;
-    overflow: hidden;
+    overflow: visible;
   }
 
   .vc-blob--teachers {
-    width: 300px;
-    height: 300px;
+    width: 220px;
+    height: 220px;
     background: var(--CyanAlpha22);
-    top: -90px;
-    left: -70px;
+    top: 160px;
+    left: -40px;
     animation: vc-float 8s ease-in-out infinite;
   }
 
   .vc-blob--teachers-circle {
-    width: 150px;
-    height: 150px;
+    width: 140px;
+    height: 140px;
     background: var(--MaroonAlpha16);
-    bottom: 40px;
-    right: 6%;
+    bottom: 80px;
+    right: 8%;
     animation: vc-float2 8s ease-in-out infinite;
   }
 
   .vc-section-inner {
     position: relative;
+    z-index: 1;
     max-width: 1180px;
     margin: 0 auto;
     padding: 88px 24px;
@@ -1448,9 +1504,21 @@
   }
 
   #teachers .vc-section-inner {
-    padding-top: 64px;
+    padding-top: 40px;
     padding-bottom: 64px;
     max-width: 980px;
+  }
+
+  #courses .vc-section-inner {
+    padding-top: 48px;
+  }
+
+  .vc-about + .vc-section {
+    padding-top: 40px;
+  }
+
+  #reviews.vc-section {
+    padding-top: 48px;
   }
 
   .vc-teacher-grid {
@@ -1703,7 +1771,7 @@
   .vc-testimonial-card {
     position: relative;
     overflow: hidden;
-    background: var(--Cream);
+    background: var(--White);
     border: 1px solid var(--TealAlpha08);
     border-radius: 26px;
     padding: 30px 26px;
@@ -1753,90 +1821,84 @@
   }
 
   .vc-blob--courses {
-    width: 260px;
-    height: 260px;
+    width: 200px;
+    height: 200px;
     background: var(--CyanAlpha20);
-    bottom: -80px;
-    right: -60px;
+    bottom: 80px;
+    right: -30px;
     animation: vc-float2 9s ease-in-out infinite;
   }
 
   .vc-blob--courses-circle {
-    width: 140px;
-    height: 140px;
+    width: 130px;
+    height: 130px;
     background: var(--MaroonAlpha16);
-    top: 60px;
-    left: 5%;
+    top: 90px;
+    left: 6%;
     animation: vc-float 8s ease-in-out infinite;
   }
 
-  .vc-batch-card {
+  .vc-batch-board {
+    display: grid;
+    grid-template-columns: minmax(260px, 0.92fr) 1.2fr;
+    margin-top: 44px;
+    background: var(--White);
     border-radius: 28px;
-    padding: 32px 28px;
-    display: flex;
-    flex-direction: column;
-    background: var(--Cream);
+    overflow: hidden;
     box-shadow: 0 16px 40px var(--TealAlpha10);
-    transition: transform 0.32s cubic-bezier(0.2, 0.7, 0.2, 1), box-shadow 0.32s ease, background 0.28s ease;
+    min-height: 420px;
   }
 
-  .vc-batch-toggle {
+  .vc-batch-tabs {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    gap: 6px;
+    padding: 12px;
+    background: var(--Mint);
+  }
+
+  .vc-batch-tab {
+    display: flex;
+    align-items: center;
+    gap: 12px;
     width: 100%;
     margin: 0;
-    padding: 0;
+    padding: 12px 14px;
     border: 0;
+    border-radius: 16px;
     background: transparent;
     font: inherit;
     color: inherit;
     text-align: left;
     cursor: pointer;
+    transition: background 0.22s ease, box-shadow 0.22s ease;
   }
 
-  .vc-batch-toggle:focus-visible {
+  .vc-batch-tab:hover {
+    background: var(--White);
+  }
+
+  .vc-batch-tab:focus-visible {
     outline: 2px solid var(--Maroon);
-    outline-offset: 4px;
-    border-radius: 16px;
+    outline-offset: 2px;
   }
 
-  .vc-batch-card--light .vc-batch-link,
-  .vc-batch-card .vc-batch-link {
-    color: var(--Maroon);
-  }
-
-  .vc-batch-card .vc-batch-range {
-    color: var(--Teal);
-  }
-
-  .vc-batch-card--light .vc-batch-title,
-  .vc-batch-card .vc-batch-title {
-    color: var(--TextMuted);
-  }
-
-  .vc-batch-card.is-active {
+  .vc-batch-tab.is-active {
     background: var(--Teal);
+    box-shadow: 0 10px 22px var(--TealAlpha18);
   }
 
-  .vc-batch-card.is-active .vc-batch-range {
-    background: var(--Cyan);
-    color: var(--Teal);
-    padding: 4px 14px;
-    border-radius: 999px;
-  }
-
-  .vc-batch-card.is-active .vc-batch-link {
-    color: var(--Cyan);
-  }
-
-  .vc-batch-card.is-active .vc-batch-title {
-    color: var(--CyanPale);
+  .vc-batch-tab-copy {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
   }
 
   .vc-batch-icon {
-    width: 56px;
-    height: 56px;
+    width: 42px;
+    height: 42px;
+    flex: none;
     border-radius: 50%;
     background: var(--Cyan);
     display: inline-flex;
@@ -1845,54 +1907,82 @@
   }
 
   .vc-batch-range {
-    display: inline-flex;
-    align-items: center;
-    width: fit-content;
     font-family: 'Baloo 2', cursive;
     font-weight: 700;
-    font-size: 24px;
-    line-height: 1.15;
-    letter-spacing: -0.01em;
-    margin: 16px 0 0;
-    padding: 4px 0;
-    transition: background 0.25s ease, color 0.25s ease, padding 0.25s ease;
+    font-size: 16px;
+    line-height: 1.2;
+    color: var(--Teal);
   }
 
   .vc-batch-title {
     font-weight: 600;
-    font-size: 15px;
-    margin: 8px 0 0;
+    font-size: 13px;
+    color: var(--TextMuted);
+  }
+
+  .vc-batch-tab.is-active .vc-batch-range {
+    color: var(--Cream);
+  }
+
+  .vc-batch-tab.is-active .vc-batch-title {
+    color: var(--CyanPale);
+  }
+
+  .vc-batch-panel {
+    display: flex;
+    flex-direction: column;
+    padding: 36px 40px;
+    background: var(--Teal);
+    color: var(--Cream);
+  }
+
+  .vc-batch-panel-label {
+    margin: 0 0 10px;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--Cyan);
+  }
+
+  .vc-batch-panel-range {
+    margin: 0;
+    font-family: 'Baloo 2', cursive;
+    font-weight: 700;
+    font-size: clamp(26px, 3vw, 34px);
+    line-height: 1.15;
+    color: var(--Cream);
+  }
+
+  .vc-batch-panel-title {
+    margin: 6px 0 0;
+    font-weight: 600;
+    font-size: 16px;
+    color: var(--CyanPale);
+  }
+
+  .vc-batch-panel-body {
+    margin: 18px 0 0;
+    font-size: 16px;
+    line-height: 1.65;
+    color: var(--Cream);
   }
 
   .vc-batch-link {
     margin-top: auto;
-    padding-top: 18px;
+    padding-top: 28px;
     text-decoration: none;
     font-weight: 700;
     font-size: 15px;
-  }
-
-  .vc-batch-detail {
-    margin-top: 18px;
-    background: var(--Cream);
-    color: var(--TextBody);
-    border-radius: 22px;
-    padding: 20px 26px;
-    font-size: 16px;
-    line-height: 1.65;
-    box-shadow: 0 12px 30px var(--TealAlpha10);
-  }
-
-  .vc-batch-detail[hidden] {
-    display: none;
+    color: var(--Cyan);
   }
 
   .vc-blob--reviews-circle {
-    width: 200px;
-    height: 200px;
+    width: 180px;
+    height: 180px;
     background: var(--MaroonAlpha16);
-    top: 40px;
-    left: -50px;
+    top: 60px;
+    left: -20px;
     animation: vc-float2 8s ease-in-out infinite;
   }
 
@@ -1993,7 +2083,13 @@
   .vc-contact-row {
     display: flex;
     gap: 14px;
-    align-items: center;
+    align-items: flex-start;
+    min-width: 0;
+  }
+
+  .vc-contact-row > div {
+    min-width: 0;
+    flex: 1;
   }
 
   .vc-contact-icon {
@@ -2019,6 +2115,8 @@
     font-weight: 600;
     color: var(--Cream);
     margin-top: 1px;
+    overflow-wrap: anywhere;
+    word-break: break-word;
   }
 
   .vc-contact-batches {
@@ -2071,9 +2169,11 @@
   }
 
   .vc-contact-value--link {
-    display: inline-block;
+    display: block;
     text-decoration: none;
     color: var(--Cream);
+    overflow-wrap: anywhere;
+    word-break: break-word;
   }
 
   .vc-contact-value--link:hover {
@@ -2302,8 +2402,7 @@
   }
 
   .vc-reason-card:hover,
-  .vc-testimonial-card:hover,
-  .vc-batch-card:hover {
+  .vc-testimonial-card:hover {
     transform: translateY(-8px);
     box-shadow: 0 28px 56px var(--TealAlpha18);
   }
@@ -2387,17 +2486,56 @@
   @media (max-width: 900px) {
     .vc-hero-grid {
       grid-template-columns: 1fr;
-      gap: 36px;
+      gap: 28px;
     }
 
-    .vc-hero-media {
-      max-width: 520px;
+    .vc-hero-media,
+    .vc-about-media,
+    .vc-photo-frame {
       width: 100%;
-      margin: 0 auto;
+      max-width: 100%;
+      min-width: 0;
     }
 
-    .vc-about {
-      gap: 36px;
+    .vc-photo-frame {
+      min-height: 240px;
+      aspect-ratio: 4 / 3;
+    }
+
+    .vc-about.vc-grid2 {
+      grid-template-columns: 1fr;
+      gap: 28px;
+    }
+
+    .vc-contact-grid {
+      grid-template-columns: 1fr;
+      gap: 28px;
+    }
+
+    .vc-batch-board {
+      grid-template-columns: 1fr;
+      min-height: 0;
+    }
+
+    .vc-batch-tabs {
+      display: flex;
+      flex-direction: column;
+      padding: 10px;
+    }
+
+    .vc-batch-tab {
+      width: 100%;
+      margin: 0;
+      align-items: flex-start;
+    }
+
+    .vc-batch-range,
+    .vc-batch-title {
+      overflow-wrap: anywhere;
+    }
+
+    .vc-batch-panel {
+      padding: 28px 22px 32px;
     }
   }
 
@@ -2406,20 +2544,319 @@
       grid-template-columns: 1fr;
     }
 
-    .vc-teacher-photo-img {
-      object-position: center 18%;
+    .vc-pad-x {
+      padding-left: 16px !important;
+      padding-right: 16px !important;
     }
 
-    .vc-float-card--doubt,
+    .vc-hero {
+      padding: 28px 16px 36px;
+      background: var(--Cream);
+    }
+
+    .vc-hero .vc-pad-x {
+      padding-left: 0 !important;
+      padding-right: 0 !important;
+    }
+
+    .vc-about,
+    .vc-section,
+    .vc-section-muted {
+      background: var(--Cream);
+    }
+
+    #courses .vc-section-inner {
+      padding-top: 8px !important;
+    }
+
+    #teachers .vc-section-inner {
+      padding-top: 8px !important;
+    }
+
+    .vc-about + .vc-section,
+    #reviews.vc-section {
+      padding-top: 24px;
+    }
+
+    .vc-blob--hero-teal,
+    .vc-blob--teachers,
+    .vc-blob--courses,
+    .vc-blob--reasons {
+      opacity: 0.45;
+    }
+
+    .vc-photo-frame {
+      border-radius: 24px;
+      min-height: 240px;
+    }
+
+    .vc-float-card--doubt {
+      left: 8px;
+      right: 8px;
+      bottom: 10px;
+      max-width: none;
+      width: auto;
+    }
+
     .vc-board-badge {
-      max-width: 46%;
+      right: 8px;
+      top: 10px;
+      max-width: calc(100% - 16px);
     }
 
     .vc-float-card {
       padding: 12px 14px;
+      box-sizing: border-box;
     }
 
-    .vc-board-badge {
+    .vc-float-card-title {
+      font-size: 14px;
+      overflow-wrap: anywhere;
+      min-width: 0;
+    }
+
+    .vc-float-card-row {
+      align-items: flex-start;
+    }
+
+    .vc-stats {
+      display: grid;
+      grid-template-columns: 1fr;
+      width: 100%;
+    }
+
+    .vc-stat {
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .vc-section,
+    .vc-about {
+      padding-top: 36px;
+      padding-bottom: 36px;
+    }
+
+    .vc-section-muted.vc-sec {
+      padding-top: 20px !important;
+      padding-bottom: 20px !important;
+    }
+
+    .vc-section-muted + .vc-section-muted.vc-sec {
+      padding-top: 4px !important;
+    }
+
+    #courses .vc-section-inner,
+    #teachers .vc-section-inner {
+      padding-top: 0 !important;
+      padding-bottom: 0 !important;
+    }
+
+    .vc-grid3,
+    #ReasonGrid,
+    #ReviewGrid,
+    #TeacherGrid,
+    .vc-reason-card,
+    .vc-testimonial-card,
+    .vc-batch-board,
+    .vc-teacher-card {
+      width: 100%;
+      max-width: 100%;
+      box-sizing: border-box;
+    }
+
+    .vc-grid3 {
+      margin-top: 24px;
+      gap: 14px;
+    }
+
+    .vc-reason-card,
+    .vc-testimonial-card {
+      background: var(--White);
+    }
+
+    .vc-batch-board {
+      margin-top: 24px;
+    }
+
+    .vc-batch-tabs {
+      padding: 8px;
+      gap: 4px;
+    }
+
+    .vc-batch-tab {
       padding: 10px 12px;
+      gap: 10px;
+    }
+
+    .vc-batch-icon {
+      width: 36px;
+      height: 36px;
+    }
+
+    .vc-batch-range {
+      font-size: 15px;
+    }
+
+    .vc-batch-panel {
+      padding: 22px 18px 26px;
+    }
+
+    .vc-batch-panel-range {
+      font-size: 26px;
+    }
+
+    .vc-batch-panel-body {
+      font-size: 15px;
+      overflow-wrap: anywhere;
+    }
+
+    .vc-reason-card {
+      padding: 24px 20px;
+    }
+
+    .vc-teacher-grid {
+      margin-top: 20px;
+      gap: 12px;
+    }
+
+    .vc-teacher-body {
+      padding: 18px 18px 20px;
+    }
+
+    .vc-photo-fade,
+    .vc-photo-fade-img {
+      width: 100%;
+      height: 100%;
+    }
+
+    .vc-eyebrow {
+      max-width: 100%;
+      white-space: normal;
+      text-align: center;
+      justify-content: center;
+      line-height: 1.3;
+      font-size: 15px;
+      padding: 9px 16px 9px 13px;
+    }
+
+    .vc-section-header {
+      max-width: 100%;
+      text-align: center;
+    }
+
+    .vc-heading-xl,
+    .vc-heading-lg {
+      overflow-wrap: break-word;
+      word-break: normal;
+    }
+
+    .vc-hero-grid > div:first-child,
+    .vc-about > div:last-child,
+    .vc-contact-grid > div:first-child {
+      text-align: center;
+      min-width: 0;
+      max-width: 100%;
+    }
+
+    .vc-hero .vc-actions,
+    .vc-hero .vc-tag-list,
+    .vc-about .vc-stats {
+      justify-content: center;
+    }
+
+    .vc-lead,
+    .vc-lead--light {
+      margin-left: auto;
+      margin-right: auto;
+      max-width: 100%;
+    }
+
+    .vc-about .vc-body {
+      text-align: left;
+    }
+
+    .vc-sec > .vc-section-inner,
+    .vc-sec > .vc-container.vc-section-inner {
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+
+    .vc-contact.vc-sec {
+      padding-top: 48px !important;
+      padding-bottom: 48px !important;
+    }
+
+    .vc-contact-grid {
+      grid-template-columns: 1fr;
+      gap: 24px;
+      width: 100%;
+      max-width: 100%;
+    }
+
+    .vc-contact-rows,
+    .vc-contact-social-block,
+    .vc-form-panel {
+      width: 100%;
+      max-width: 100%;
+      min-width: 0;
+    }
+
+    .vc-contact-rows {
+      text-align: left;
+    }
+
+    .vc-contact-social-block {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .vc-contact-socials {
+      justify-content: center;
+    }
+
+    .vc-form-panel {
+      padding: 22px 18px;
+    }
+
+    .vc-contact-batches {
+      flex-wrap: wrap;
+    }
+  }
+
+  @media (max-width: 460px) {
+    .vc-eyebrow {
+      font-size: 13.5px;
+      padding: 8px 14px 8px 12px;
+    }
+
+    .vc-heading-xl {
+      font-size: clamp(28px, 8.4vw, 36px);
+    }
+
+    .vc-heading-lg {
+      font-size: clamp(24px, 7.2vw, 30px);
+    }
+
+    .vc-logo-text {
+      white-space: normal;
+    }
+
+    .vc-nav-link {
+      padding: 7px 4px;
+      font-size: 12px;
+    }
+
+    .vc-contact-value,
+    .vc-contact-value--link {
+      font-size: 15px;
+    }
+
+    .vc-form-panel {
+      padding: 20px 16px;
+    }
+
+    .vc-pad-x {
+      padding-left: 16px !important;
+      padding-right: 16px !important;
     }
   }

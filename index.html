@@ -90,7 +90,7 @@
 </div>
 
 <div class="vc-page">
-
+  image.png
   <header class="vc-header">
     <nav class="vc-nav">
       <a href="#home" class="vc-logo-link" aria-label="Vardhaman Classes">
@@ -129,9 +129,11 @@
             <span class="vc-icon-circle">
               <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#0E6A78" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2Z"/></svg>
             </span>
-            <div class="vc-float-card-title" data-text="Hero.FloatingCardTitle"></div>
+            <div class="vc-float-card-copy">
+              <div class="vc-float-card-title" data-text="Hero.FloatingCardTitle"></div>
+              <div class="vc-float-card-body" data-text="Hero.FloatingCardBody"></div>
+            </div>
           </div>
-          <div class="vc-float-card-body" data-text="Hero.FloatingCardBody"></div>
         </div>
         <div class="vc-board-badge">
           <div class="vc-board-badge-title" data-text="Hero.BoardsBadgeTitle"></div>
@@ -187,8 +189,10 @@
         </span>
         <h2 class="vc-rise2 vc-d1 vc-heading-lg" data-text="Courses.Heading"></h2>
       </div>
-      <div class="vc-grid3 vc-stagger" id="BatchGrid"></div>
-      <div class="vc-batch-detail" id="BatchDetail" hidden></div>
+      <div class="vc-batch-board">
+        <div class="vc-batch-tabs vc-stagger" id="BatchGrid" role="tablist" aria-label="Batches"></div>
+        <div class="vc-batch-panel" id="BatchDetail" role="tabpanel"></div>
+      </div>
     </div>
   </section>
 
