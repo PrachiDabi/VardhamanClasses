@@ -504,13 +504,15 @@
     const FormSuccess = document.getElementById("FormSuccess");
     const FormError = document.getElementById("FormError");
     const ResetBtn = document.getElementById("FormResetBtn");
+    const FormspreeEndpoint = "https://formspree.io/f/mqpzynzn";
 
     if (!Form || !FormPanel || !FormSuccess) return;
 
-    Form.addEventListener("submit", (Event) => {
+    Form.addEventListener("submit", async (Event) => {
       Event.preventDefault();
       const Name = document.getElementById("FormName");
       const Phone = document.getElementById("FormPhone");
+      const SubmitButton = Form.querySelector(".vc-form-submit");
 
       if (!Name.value.trim() || !Phone.value.trim()) {
         FormError.hidden = false;
@@ -518,8 +520,27 @@
       }
 
       FormError.hidden = true;
-      FormPanel.hidden = true;
-      FormSuccess.hidden = false;
+      if (SubmitButton) SubmitButton.setAttribute("disabled", "true");
+
+      const FormPayload = new window.FormData(Form);
+      FormPayload.set("_subject", `Vardhaman Classes enquiry from ${Name.value.trim()}`);
+
+      try {
+        const Response = await fetch(FormspreeEndpoint, {
+          method: "POST",
+          body: FormPayload,
+          headers: { Accept: "application/json" },
+        });
+
+        if (!Response.ok) throw new Error("Request failed");
+
+        FormPanel.hidden = true;
+        FormSuccess.hidden = false;
+      } catch (SubmitError) {
+        FormError.hidden = false;
+      } finally {
+        if (SubmitButton) SubmitButton.removeAttribute("disabled");
+      }
     });
 
     ResetBtn.addEventListener("click", () => {
