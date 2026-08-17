@@ -796,7 +796,7 @@
   .vc-logo-text {
     font-family: 'Baloo 2', cursive;
     font-weight: 700;
-    font-size: 20px;
+    font-size: 26px;
     color: var(--Teal);
     line-height: 1.1;
     white-space: nowrap;
@@ -918,7 +918,7 @@
     }
 
     .vc-logo-text {
-      font-size: 18px;
+      font-size: 22px;
     }
 
     .vc-navlinks {
@@ -963,7 +963,7 @@
     }
 
     .vc-logo-text {
-      font-size: 16px;
+      font-size: 20px;
     }
 
     .vc-nav-link {
@@ -979,7 +979,7 @@
 
   @media (max-width: 460px) {
     .vc-logo-text {
-      font-size: 14px;
+      font-size: 18px;
     }
 
     .vc-nav-link {
@@ -2372,7 +2372,7 @@
   .vc-footer-logo-text {
     font-family: 'Baloo 2', cursive;
     font-weight: 700;
-    font-size: 21px;
+    font-size: 26px;
     color: var(--Teal);
   }
 
