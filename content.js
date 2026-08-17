@@ -274,6 +274,7 @@ window.PageContent = {
       "BoardLabel": "Board",
       "SubmitButton": "Enroll Now",
       "ErrorMessage": "Please add your name and phone number.",
+      "SendErrorMessage": "Could not send your enquiry. Please try again or message us on WhatsApp.",
       "SuccessTitle": "Yay — got it!",
       "SuccessMessage": "Thanks for reaching out. We'll call you shortly to find the right batch for your child.",
       "ResetButton": "Send another"

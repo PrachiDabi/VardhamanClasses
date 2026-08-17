@@ -506,7 +506,10 @@
     const ResetBtn = document.getElementById("FormResetBtn");
     const FormspreeEndpoint = "https://formspree.io/f/mqpzynzn";
 
-    if (!Form || !FormPanel || !FormSuccess) return;
+    if (!Form || !FormPanel || !FormSuccess || !FormError) return;
+
+    const ValidationMessage = Content.Contact.Form.ErrorMessage;
+    const SendErrorMessage = Content.Contact.Form.SendErrorMessage;
 
     Form.addEventListener("submit", async (Event) => {
       Event.preventDefault();
@@ -515,6 +518,7 @@
       const SubmitButton = Form.querySelector(".vc-form-submit");
 
       if (!Name.value.trim() || !Phone.value.trim()) {
+        FormError.textContent = ValidationMessage;
         FormError.hidden = false;
         return;
       }
@@ -531,24 +535,31 @@
           body: FormPayload,
           headers: { Accept: "application/json" },
         });
+        const Result = await Response.json().catch(() => null);
 
-        if (!Response.ok) throw new Error("Request failed");
+        if (!Response.ok || (Result && Result.ok === false)) {
+          throw new Error("Request failed");
+        }
 
         FormPanel.hidden = true;
         FormSuccess.hidden = false;
       } catch (SubmitError) {
+        FormError.textContent = SendErrorMessage;
         FormError.hidden = false;
       } finally {
         if (SubmitButton) SubmitButton.removeAttribute("disabled");
       }
     });
 
-    ResetBtn.addEventListener("click", () => {
-      Form.reset();
-      FormError.hidden = true;
-      FormSuccess.hidden = true;
-      FormPanel.hidden = false;
-    });
+    if (ResetBtn) {
+      ResetBtn.addEventListener("click", () => {
+        Form.reset();
+        FormError.textContent = ValidationMessage;
+        FormError.hidden = true;
+        FormSuccess.hidden = true;
+        FormPanel.hidden = false;
+      });
+    }
   }
 
   function Init() {
